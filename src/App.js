@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import 'bulma/css/bulma.css';
+import { useState } from 'react';
+import ItemShow from './ItemShow';
+
+function getRandomItem() {
+    const items = ['plate', 'spoon', 'cup', 'mug']
+
+    return items[Math.floor(Math.random() * items.length)]
+}
+
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    const [items, setItems] = useState([]);
+
+    const handleClick = () => {
+         setItems([...items, getRandomItem()] )
+    };
+
+    const renderedItems = items.map((item, index) => {
+     return <ItemShow type={item} key={index} />
+    });
+
+    return (
+        <div>
+            <button onClick={handleClick} className="button">Add Item</button>
+            <div>
+                {renderedItems}
+            </div>
+        </div>
+    )
 }
 
 export default App;
+
